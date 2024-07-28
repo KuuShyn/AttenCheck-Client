@@ -1,19 +1,22 @@
-enum TimeZone {
-  EST = "America/New_York",
-  HONDURAS = "America/Tegucigalpa",
-  PHILIPPINES = "Asia/Manila",
-}
+const TimeZone = {
+  EST: "America/New_York",
+  HONDURAS: "America/Tegucigalpa",
+  PHILIPPINES: "Asia/Manila",
+} as const;
 
-enum Role {
-  ADMIN = "ADMIN",
-  USER = "USER",
-}
+const Role = {
+  ADMIN: "ADMIN",
+  USER: "USER",
+} as const;
+
+export type TimeZone = (typeof TimeZone)[keyof typeof TimeZone];
+export type Role = (typeof Roles)[keyof typeof Roles];
 
 export type User = {
   id: string;
   name: string;
   email: string;
-  password: string;
+  password?: string;
   timeZone: TimeZone;
   role: Role;
   scheduledStart: string;
@@ -33,16 +36,20 @@ export type Attendance = {
   updatedAt: Date;
 };
 
-enum OvertimeType {
-  PRE_SHIFT = "PRE_SHIFT",
-  POST_SHIFT = "POST_SHIFT",
-}
+const OvertimeType = {
+  PRE_SHIFT: "PRE_SHIFT",
+  POST_SHIFT: "POST_SHIFT",
+} as const;
 
-enum OvertimeStatus {
-  PENDING = "PENDING",
-  APPROVED = "APPROVED",
-  REJECTED = "REJECTED",
-}
+const OvertimeStatus = {
+  PENDING: "PENDING",
+  APPROVED: "APPROVED",
+  REJECTED: "REJECTED",
+} as const;
+
+export type OvertimeType = (typeof OvertimeType)[keyof typeof OvertimeType];
+export type OvertimeStatus =
+  (typeof OvertimeStatus)[keyof typeof OvertimeStatus];
 
 export type OvertimeRequest = {
   id: string;
