@@ -1,44 +1,56 @@
-const formatTime = (dateString: string, timeZone: string) => {
+export const formatISOForTimeZone = (date: Date, timeZone: string): string => {
   const options: Intl.DateTimeFormatOptions = {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-    timeZone,
-    timeZoneName: "short", // Optional: includes the time zone abbreviation (e.g., EST, GMT)
+    timeZone: timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZoneName: 'short',
   };
 
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat("en-US", options).format(date);
+  const formatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
+    'en-US',
+    options,
+  );
+  const formatted: string = formatter.format(date);
+
+  const utcDate = new Date(`${formatted}`);
+  return utcDate.toISOString();
 };
 
-const formatDate = (dateString: string, timeZone: string) => {
+export const formatDateForTimeZone = (date: Date, timeZone: string): string => {
   const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
+    timeZone: timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
     hour12: true,
-    timeZone,
-    timeZoneName: "short", // Optional: includes the time zone abbreviation (e.g., EST, GMT)
   };
 
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat("en-US", options).format(date);
+  const formatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
+    'en-US',
+    options,
+  );
+  return formatter.format(date);
 };
 
-const timeZoneMap: Record<string, string> = {
-  EST: "America/New_York",
-  HONDURAS: "America/Tegucigalpa",
-  PHILIPPINES: "Asia/Manila",
+export const formatTimeForTimeZone = (date: Date, timeZone: string): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    timeZone: timeZone,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true,
+  };
+
+  const formatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
+    'en-US',
+    options,
+  );
+  return formatter.format(date);
 };
-
-const convertToISO = (dateTime: string, timeZone: string): string => {
-  const date = new Date(dateTime);
-  const dateInTimeZone = new Date(date.toLocaleString("en-US", { timeZone: timeZoneMap[timeZone] }));
-  return dateInTimeZone.toISOString();
-};
-
-export { formatTime, formatDate, timeZoneMap, convertToISO };
-
-
