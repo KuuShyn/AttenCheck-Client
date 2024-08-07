@@ -1,8 +1,8 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Backend_URL } from "@/lib/Constants";
 import { getServerSession } from "next-auth";
 import { User } from "@/lib/types";
 import UserProfilePage from "../../components/UserProfilePage";
+import { authOptions } from "@/lib/auth";
 
 type Props = {
   params: {

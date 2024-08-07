@@ -1,8 +1,9 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+
 import { Backend_URL } from '@/lib/Constants';
 import { User } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import RequestPage from './components/RequestPage';
+import { authOptions } from '@/lib/auth';
 
 const AdminServerSession = async () => {
 	const session = await getServerSession(authOptions);
