@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/components/Button';
 import InputBox from '@/components/InputBox';
-import { Backend_URL } from '@/lib/Constants';
+import { SERVER_URL } from '@/lib/Constants';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import {
@@ -90,7 +90,7 @@ const SignupPage = () => {
 		const scheduledEndUTC = convertToUTC(scheduledEnd);
 
 		try {
-			const res = await fetch(`${Backend_URL}/auth-v2/register`, {
+			const res = await fetch(`${SERVER_URL}/auth-v2/register`, {
 				method: 'POST',
 				body: JSON.stringify({
 					...formData,
@@ -275,12 +275,11 @@ const SignupPage = () => {
 
 								{timezones.map((tz) => (
 									<div key={tz.zone}>
-                    {tz.name} Start:{' '}
+										{tz.name} Start:{' '}
 										{formattedDateTime[tz.zone]?.start
 											.iso || 'N/A'}
 									</div>
 								))}
-							
 							</>
 						}
 						visible={showStartTooltip}
@@ -304,11 +303,11 @@ const SignupPage = () => {
 										End Time Formatted Date and Time:
 									</strong>
 								</div>
-                {timezones.map((tz) => (
+								{timezones.map((tz) => (
 									<div key={tz.zone}>
 										{tz.name} End:{' '}
-										{formattedDateTime[tz.zone]?.end
-											.date || 'N/A'}
+										{formattedDateTime[tz.zone]?.end.date ||
+											'N/A'}
 										<br />
 									</div>
 								))}
@@ -316,9 +315,9 @@ const SignupPage = () => {
 
 								{timezones.map((tz) => (
 									<div key={tz.zone}>
-                    {tz.name} End:{' '}
-										{formattedDateTime[tz.zone]?.end
-											.iso || 'N/A'}
+										{tz.name} End:{' '}
+										{formattedDateTime[tz.zone]?.end.iso ||
+											'N/A'}
 									</div>
 								))}
 							</>

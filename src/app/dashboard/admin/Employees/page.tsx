@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Backend_URL } from '@/lib/Constants';
+import { SERVER_URL } from '@/lib/Constants';
 import { User } from '@/lib/types';
 import { getSession } from 'next-auth/react';
 
@@ -17,7 +17,7 @@ const Employees = () => {
 				const session = await getSession();
 				if (session && session.backendTokens) {
 					const response = await fetch(
-						`${Backend_URL}/users?page=${page}&limit=10`,
+						`${SERVER_URL}/users?page=${page}&limit=10`,
 						{
 							method: 'GET',
 							headers: {

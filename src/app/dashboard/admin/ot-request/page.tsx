@@ -1,5 +1,4 @@
-
-import { Backend_URL } from '@/lib/Constants';
+import { SERVER_URL } from '@/lib/Constants';
 import { User } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import RequestPage from './components/RequestPage';
@@ -7,7 +6,7 @@ import { authOptions } from '@/lib/auth';
 
 const AdminServerSession = async () => {
 	const session = await getServerSession(authOptions);
-	const response = await fetch(`${Backend_URL}/users/overtime`, {
+	const response = await fetch(`${SERVER_URL}/users/overtime`, {
 		method: 'GET',
 		headers: {
 			authorization: `Bearer ${session?.backendTokens.accessToken}`,

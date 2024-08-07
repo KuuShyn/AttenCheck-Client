@@ -1,6 +1,6 @@
 import { Button } from '@/components/Button';
 import { useState } from 'react';
-import { Backend_URL } from '@/lib/Constants';
+import { SERVER_URL } from '@/lib/Constants';
 import { useRouter } from 'next/navigation';
 import { getSession } from 'next-auth/react';
 
@@ -26,7 +26,7 @@ export const TimeOutButton = ({
 		try {
 			const session = await getSession();
 			const response = await fetch(
-				`${Backend_URL}/attendance/${attendanceId}`,
+				`${SERVER_URL}/attendance/${attendanceId}`,
 				{
 					method: 'PATCH',
 					headers: {

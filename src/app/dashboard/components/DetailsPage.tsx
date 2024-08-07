@@ -1,10 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { User } from '@/lib/types'; // Updated import
+import { User } from '@/lib/types';
 import { TimeInButton } from './TimeInButton';
 import { TimeOutButton } from './TimeOutButton';
 import TimezoneDropdown from './TimeZoneDropDown';
-import { Backend_URL } from '@/lib/Constants';
+import { SERVER_URL } from '@/lib/Constants';
 import { getSession } from 'next-auth/react';
 import { Button } from '@/components/Button';
 import Modal from '@/components/Modal';
@@ -27,7 +27,7 @@ export default function DetailsPage({ user }: { user: User }) {
 			const session = await getSession();
 			try {
 				const timeInResponse = await fetch(
-					`${Backend_URL}/attendance/check-time-in/${user.id}?timezone=${user.timeZone}`,
+					`${SERVER_URL}/attendance/check-time-in/${user.id}?timezone=${user.timeZone}`,
 					{
 						headers: {
 							Authorization: `Bearer ${session?.backendTokens.accessToken}`,
@@ -35,6 +35,7 @@ export default function DetailsPage({ user }: { user: User }) {
 						},
 					}
 				);
+				console.log('Time in Response:', timeInResponse);
 				if (!timeInResponse.ok) {
 					throw new Error('Failed to fetch time-in status');
 				}
@@ -43,7 +44,7 @@ export default function DetailsPage({ user }: { user: User }) {
 				setHasTimeInToday(timeInData);
 
 				const timeOutResponse = await fetch(
-					`${Backend_URL}/attendance/check-time-out/${user.id}?timezone=${user.timeZone}`,
+					`${SERVER_URL}/attendance/check-time-out/${user.id}?timezone=${user.timeZone}`,
 					{
 						headers: {
 							Authorization: `Bearer ${session?.backendTokens.accessToken}`,

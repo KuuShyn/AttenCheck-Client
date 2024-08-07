@@ -1,1 +1,1 @@
-export const Backend_URL = process.env.NODE_ENV === 'production' ? process.env.BACKEND_URL : "http://localhost:6969";
+export const SERVER_URL = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_BACKEND_URL : "http://localhost:6969";

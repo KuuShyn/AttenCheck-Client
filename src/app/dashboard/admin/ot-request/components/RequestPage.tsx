@@ -1,6 +1,6 @@
 'use client';
 
-import { Backend_URL } from '@/lib/Constants';
+import { SERVER_URL } from '@/lib/Constants';
 import { User } from '@/lib/types';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -16,7 +16,7 @@ const RequestsPage = ({ users }: { users: User[] }) => {
 		try {
 			const session = await getSession();
 			const response = await fetch(
-				`${Backend_URL}/overtime-request/${requestId}`,
+				`${SERVER_URL}/overtime-request/${requestId}`,
 				{
 					method: 'PATCH',
 					headers: {

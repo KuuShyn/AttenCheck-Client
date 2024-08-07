@@ -1,6 +1,6 @@
 import { Button } from '@/components/Button';
 import { useState } from 'react';
-import { Backend_URL } from '@/lib/Constants';
+import { SERVER_URL } from '@/lib/Constants';
 import { useRouter } from 'next/navigation';
 import { getSession } from 'next-auth/react';
 import { formatTimeForTimeZone } from '@/lib/Timezone';
@@ -72,7 +72,7 @@ export const TimeInButton = ({
 
 		try {
 			const session = await getSession();
-			const response = await fetch(`${Backend_URL}/attendance`, {
+			const response = await fetch(`${SERVER_URL}/attendance`, {
 				method: 'POST',
 				headers: {
 					Authorization: `Bearer ${session?.backendTokens.accessToken}`,
@@ -103,7 +103,7 @@ export const TimeInButton = ({
 	const handleOvertimeSubmit = async (hours: number) => {
 		try {
 			const session = await getSession();
-			const response = await fetch(`${Backend_URL}/overtime-request`, {
+			const response = await fetch(`${SERVER_URL}/overtime-request`, {
 				method: 'POST',
 				headers: {
 					Authorization: `Bearer ${session?.backendTokens.accessToken}`,
