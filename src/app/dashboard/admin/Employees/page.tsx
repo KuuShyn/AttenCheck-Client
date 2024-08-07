@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { SERVER_URL } from '@/lib/Constants';
 import { User } from '@/lib/types';
 import { getSession } from 'next-auth/react';
+import { formatDateForTimeZone } from '@/lib/Timezone';
 
 const Employees = () => {
 	const [users, setUsers] = useState<User[]>([]);
@@ -105,14 +106,16 @@ const Employees = () => {
 									{user.role}
 								</td>
 								<td className="py-2 px-4 text-gray-800">
-									{new Date(
-										user.scheduledStart
-									).toLocaleString()}
+									{formatDateForTimeZone(
+										new Date(user.scheduledStart),
+										user.timeZone
+									)}
 								</td>
 								<td className="py-2 px-4 text-gray-800">
-									{new Date(
-										user.scheduledEnd
-									).toLocaleString()}
+									{formatDateForTimeZone(
+										new Date(user.scheduledEnd),
+										user.timeZone
+									)}
 								</td>
 							</tr>
 						))}

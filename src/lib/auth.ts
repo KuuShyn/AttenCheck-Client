@@ -1,8 +1,7 @@
-import { NextAuthOptions } from "next-auth";
-import { JWT } from "next-auth/jwt";
-import { SERVER_URL } from "./Constants";
+import { NextAuthOptions } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
+import { SERVER_URL } from './Constants';
 import CredentialsProvider from 'next-auth/providers/credentials';
-
 
 async function refreshToken(token: JWT): Promise<JWT> {
 	try {
