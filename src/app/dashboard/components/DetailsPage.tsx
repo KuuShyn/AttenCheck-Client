@@ -39,6 +39,7 @@ export default function DetailsPage({ user }: { user: User }) {
 					throw new Error('Failed to fetch time-in status');
 				}
 				const timeInData = await timeInResponse.json();
+				// console.log(timeInData);
 				setHasTimeInToday(timeInData);
 
 				const timeOutResponse = await fetch(
@@ -234,6 +235,7 @@ export default function DetailsPage({ user }: { user: User }) {
 				<div className="flex gap-4 justify-center">
 					<TimeInButton
 						userId={user.id}
+						userTimezone={user.timeZone}
 						scheduledStart={user.scheduledStart}
 						hasTimeInToday={hasTimeInToday}
 						disabled={hasTimeInToday} // Disable TimeInButton if time in is done
@@ -254,6 +256,12 @@ export default function DetailsPage({ user }: { user: User }) {
 				<OvertimeRequestForm
 					userId={user.id}
 					onClose={handleCloseModal}
+					onSubmit={function (hours: number): Promise<void> {
+						return new Promise((resolve) => {
+							resolve();
+						});
+					}}
+					isEarly={false}
 				/>
 			</Modal>
 		</div>

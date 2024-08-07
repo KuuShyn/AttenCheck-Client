@@ -7,7 +7,7 @@ import { getSession } from 'next-auth/react';
 export const TimeOutButton = ({
 	attendanceId,
 	hasTimeOutToday,
-	disabled
+	disabled,
 }: {
 	attendanceId: string;
 	hasTimeOutToday: boolean;
@@ -60,8 +60,7 @@ export const TimeOutButton = ({
 				variant="success"
 				className="w-1/2"
 				onClick={handleTimeOut}
-				disabled={loading || timeOutDone || disabled}
-			>
+				disabled={loading || timeOutDone || disabled}>
 				{loading ? 'Processing...' : 'Time Out'}
 			</Button>
 		</div>
