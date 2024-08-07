@@ -32,7 +32,7 @@ async function refreshToken(token: JWT): Promise<JWT> {
 	}
 }
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
 	providers: [
 		CredentialsProvider({
 			name: 'Credentials',
