@@ -1,6 +1,8 @@
 import { NextAuthOptions } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { Backend_URL } from "./Constants";
+import CredentialsProvider from 'next-auth/providers/credentials';
+
 
 async function refreshToken(token: JWT): Promise<JWT> {
 	try {
@@ -92,6 +94,3 @@ export const authOptions: NextAuthOptions = {
 		signOut: '/signout',
 	},
 };
-function CredentialsProvider(arg0: { name: string; credentials: { username: { label: string; type: string; placeholder: string; }; password: { label: string; type: string; }; }; authorize(credentials: any): Promise<any>; }): import("next-auth/providers/index").Provider {
-    throw new Error("Function not implemented.");
-}
