@@ -82,6 +82,9 @@ const SignupPage = () => {
 	const convertToUTC = (date: string): string => {
 		return formatISOForTimeZone(new Date(date), 'UTC');
 	};
+	const [image, setImage] = useState<File | null>(null);
+
+
 
 	const register = async () => {
 		const { scheduledStart, scheduledEnd, timeZone } = formData;
@@ -89,17 +92,26 @@ const SignupPage = () => {
 		const scheduledStartUTC = convertToUTC(scheduledStart);
 		const scheduledEndUTC = convertToUTC(scheduledEnd);
 
+
+		    // Create a FormData object
+			const formDataToSend = new FormData();
+			formDataToSend.append('name', formData.name);
+			formDataToSend.append('email', formData.email);
+			formDataToSend.append('password', formData.password);
+			formDataToSend.append('timeZone', formData.timeZone);
+			formDataToSend.append('role', formData.role);
+			formDataToSend.append('scheduledStart', scheduledStartUTC);
+			formDataToSend.append('scheduledEnd', scheduledEndUTC);
+
+		// Log the selected image to the console
+		if (image) {
+			formDataToSend.append('image', image);
+			console.log('Selected image:', image);
+		}
 		try {
 			const res = await fetch(`${SERVER_URL}/auth-v2/register`, {
 				method: 'POST',
-				body: JSON.stringify({
-					...formData,
-					scheduledStart: scheduledStartUTC,
-					scheduledEnd: scheduledEndUTC,
-				}),
-				headers: {
-					'Content-Type': 'application/json',
-				},
+				body: formDataToSend,
 			});
 
 			if (!res.ok) {
@@ -115,7 +127,11 @@ const SignupPage = () => {
 			alert('An error occurred during registration. Please try again.');
 		}
 	};
-
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files && e.target.files[0]) {
+			setImage(e.target.files[0]);
+		}
+	};
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => {
@@ -323,6 +339,21 @@ const SignupPage = () => {
 							</>
 						}
 						visible={showEndTooltip}
+					/>
+				</div>
+				<div>
+					<label
+						htmlFor="image"
+						className="block text-sm font-medium text-gray-700">
+						Upload Image
+					</label>
+					<input
+						type="file"
+						id="image"
+						name="image"
+						accept="image/*"
+						onChange={handleFileChange}
+						className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-blue-500 focus:border-blue-500"
 					/>
 				</div>
 				<div className="flex justify-center items-center gap-2">

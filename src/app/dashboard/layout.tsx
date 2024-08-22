@@ -1,7 +1,7 @@
 import { authOptions } from '@/lib/auth';
 import { getServerSession } from 'next-auth';
+import Image from 'next/image';
 import Link from 'next/link';
-
 
 type Props = {
 	children: React.ReactNode;
@@ -14,9 +14,14 @@ const DashBoardLayout = async (props: Props) => {
 		<div className="flex min-h-screen">
 			<div className="w-64 bg-gray-800 text-white p-4 shadow-lg">
 				<div className="flex flex-col items-center mb-6">
-					<div className="w-24 h-24 bg-gray-600 rounded-full flex items-center justify-center text-2xl font-bold">
-						{session?.user.name.charAt(0)}
-					</div>
+					<Image
+						className="rounded-full"
+						src={session?.user.image || ''}
+						alt="User Image"
+						width={96} // Add appropriate width
+						height={96} // Add appropriate height
+					/>
+
 					<h2 className="mt-4 text-xl font-semibold">
 						{session?.user.name}
 					</h2>
@@ -58,8 +63,6 @@ const DashBoardLayout = async (props: Props) => {
 								className="flex gap-4 ml-auto bg-green-600 text-green-200 p-2 rounded">
 								Create Employee
 							</Link>
-
-
 						</>
 					)}
 				</nav>
